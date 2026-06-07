@@ -1,8 +1,12 @@
 FROM php:8.3-apache
 
 RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip git \
-    && docker-php-ext-install pdo pdo_mysql
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -19,6 +23,8 @@ RUN php artisan key:generate || true
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 RUN a2enmod rewrite
+
+RUN php artisan migrate --force || true
 
 EXPOSE 80
 
