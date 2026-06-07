@@ -66,4 +66,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/portfolio', [PortfolioController::class, 'update']);
     Route::get('/chat/history', [ChatbotController::class, 'history']);
     Route::post('/chat', [ChatbotController::class, 'chat']);
+    Route::get('/test', function () {
+    return response()->json([
+        'status' => 'ok',
+        'message' => 'CareerAI API works'
+    ]);
+});
 });
