@@ -24,8 +24,8 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 RUN a2enmod rewrite
 
-RUN php artisan migrate --force || true
+RUN chmod +x start.sh
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["./start.sh"]
